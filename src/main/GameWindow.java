@@ -31,6 +31,8 @@ public class GameWindow extends JFrame {
     private List<Displayable> drawList;
     private List<MouseRespondable> mouseActionList;
     private List<KeyboardRespondable> keyboardActionList;
+    private List<LogicTicker> logicTickList;
+    
     
     public GameWindow () {
         
@@ -38,6 +40,7 @@ public class GameWindow extends JFrame {
         this.drawList = new ArrayList<>();
         this.mouseActionList = new ArrayList<>();
         this.keyboardActionList = new ArrayList<>();
+        this.logicTickList = new ArrayList<>();
 
     }
     
@@ -58,7 +61,8 @@ public class GameWindow extends JFrame {
         this.frameRedrawer = new Timer(FRAME_REDRAW_DELAY, new ActionListener() {
             
             @Override
-            public void actionPerformed(ActionEvent arg0) {
+            public void actionPerformed(ActionEvent e) {
+                tickLogic(FRAME_REDRAW_DELAY);
                 repaint();
             }
             
@@ -149,7 +153,7 @@ public class GameWindow extends JFrame {
             public void keyPressed(KeyEvent e) {
                 
                 for (int i = 0; i < keyboardActionList.size(); i++) {
-                    keyboardActionList.get(i).keyUp(e.getKeyCode());
+                    keyboardActionList.get(i).keyDown(e.getKeyCode());
                 }
 
             }
@@ -158,6 +162,14 @@ public class GameWindow extends JFrame {
         
     }
 
+    private void tickLogic (int delta) {
+        
+        for (int i = 0; i < this.logicTickList.size(); i++) {
+            this.logicTickList.get(i).tick(delta);
+        }
+        
+    }
+    
     @Override
     public void paint(Graphics g) {
 
@@ -170,7 +182,7 @@ public class GameWindow extends JFrame {
         dBuffer.fillRect(0, 0, this.getWidth(), this.getHeight());
         
         for (int i = 0; i < drawList.size(); i++) {
-            drawList.get(i).draw(g);
+            drawList.get(i).draw(dBuffer);
         }
         
         drawBuffer.show();
@@ -202,6 +214,14 @@ public class GameWindow extends JFrame {
     
     public void removeKeyboardActionListener (KeyboardRespondable keyboardRespondable) {
         this.keyboardActionList.remove(keyboardRespondable);
+    }
+    
+    public void addLogicTicker (LogicTicker logicTicker) {
+        this.logicTickList.add(logicTicker);
+    }
+    
+    public void removeLogicTicker (LogicTicker logicTicker) {
+        this.logicTickList.remove(logicTicker);
     }
     
 }

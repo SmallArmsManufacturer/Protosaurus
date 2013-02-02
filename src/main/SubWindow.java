@@ -1,20 +1,27 @@
 package main;
 
-import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SubWindow implements Displayable, KeyboardRespondable, MouseRespondable{
+public class SubWindow implements Displayable, KeyboardRespondable, MouseRespondable, LogicTicker {
 
-    private List<Displayable> drawList;
-    private List<MouseRespondable> mouseActionList;
-    private List<KeyboardRespondable> keyboardActionList;
+    protected List<Displayable> drawList;
+    protected List<MouseRespondable> mouseActionList;
+    protected List<KeyboardRespondable> keyboardActionList;
+    protected List<LogicTicker> logicTickList;
+    
+    protected float x, y;
 
     public SubWindow () {
         
         this.drawList = new ArrayList<>();
         this.mouseActionList = new ArrayList<>();
         this.keyboardActionList = new ArrayList<>();
+        this.logicTickList = new ArrayList<>();
+        
+        x = 0;
+        y = 0;
         
     }
     
@@ -87,12 +94,68 @@ public class SubWindow implements Displayable, KeyboardRespondable, MouseRespond
     }
 
     @Override
-    public void draw(Graphics g) {
+    public void draw(Graphics2D g) {
         
         for (int i = 0; i < drawList.size(); i++) {
             drawList.get(i).draw(g);
         }
         
+    }
+    
+    @Override
+    public void tick(int delta) {
+
+        for (int i = 0; i < logicTickList.size(); i++) {
+            logicTickList.get(i).tick(delta);
+        }
+        
+    }
+    
+    public void addDisplayable (Displayable displayable) {
+        this.drawList.add(displayable);
+    }
+    
+    public void removeDisplayable (Displayable displayable) {
+        this.drawList.remove(displayable);
+    }
+    
+    public void addMouseActionListener (MouseRespondable mouseRespondable) {
+        this.mouseActionList.add(mouseRespondable);
+    }
+    
+    public void removeMouseActionListener (MouseRespondable mouseRespondable) {
+        this.mouseActionList.remove(mouseRespondable);
+    }
+
+    public void addKeyboardActionListener (KeyboardRespondable keyboardRespondable) {
+        this.keyboardActionList.add(keyboardRespondable);
+    }
+    
+    public void removeKeyboardActionListener (KeyboardRespondable keyboardRespondable) {
+        this.keyboardActionList.remove(keyboardRespondable);
+    }
+    
+    public void addLogicTicker (LogicTicker logicTicker) {
+        this.logicTickList.add(logicTicker);
+    }
+    
+    public void removeLogicTicker (LogicTicker logicTicker) {
+        this.logicTickList.remove(logicTicker);
+    }
+
+    @Override
+    public float getX() {
+        return this.x;
+    }
+
+    @Override
+    public float getY() {
+        return this.y;
+    }
+
+    @Override
+    public float getRotation() {
+        return 0;
     }
 
 }

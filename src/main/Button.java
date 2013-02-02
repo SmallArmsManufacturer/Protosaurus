@@ -1,6 +1,6 @@
 package main;
 
-import java.awt.Graphics;
+import java.awt.Graphics2D;
 
 
 public class Button implements Displayable, MouseRespondable{
@@ -41,8 +41,23 @@ public class Button implements Displayable, MouseRespondable{
     }
 
     @Override
-    public void draw(Graphics g) {
+    public void draw(Graphics2D g) {
         this.buttonDisplay.draw(g);
+    }
+
+    @Override
+    public float getX() {
+        return this.actionRegion.getX();
+    }
+
+    @Override
+    public float getY() {
+        return this.actionRegion.getY();
+    }
+
+    @Override
+    public float getRotation() {
+        return this.buttonDisplay.getRotation();
     }
     
 }
