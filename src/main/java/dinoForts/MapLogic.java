@@ -22,7 +22,7 @@ public class MapLogic extends MouseActionRegion implements LogicTicker{
         
         super(0, 0, mapDrawer.getWidth(), mapDrawer.getHeight());
         
-        this.entities = new ArrayList<>();
+        this.entities = new ArrayList<LogicTicker>();
         this.mapDrawer = mapDrawer;
         this.effectsDrawer = effectsDrawer;
         

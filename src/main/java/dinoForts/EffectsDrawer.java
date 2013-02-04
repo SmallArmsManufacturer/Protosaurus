@@ -15,7 +15,7 @@ public class EffectsDrawer extends SubWindow{
     private MapDrawer mapDrawer;
     
     public EffectsDrawer (MapDrawer mapDrawer) {
-        this.effects = new ArrayList<>();
+        this.effects = new ArrayList<Effect>();
         this.mapDrawer = mapDrawer;
     }
     

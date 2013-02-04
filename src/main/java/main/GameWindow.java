@@ -37,10 +37,10 @@ public class GameWindow extends JFrame {
     public GameWindow () {
         
         super("Protosaurus");
-        this.drawList = new ArrayList<>();
-        this.mouseActionList = new ArrayList<>();
-        this.keyboardActionList = new ArrayList<>();
-        this.logicTickList = new ArrayList<>();
+        this.drawList = new ArrayList<Displayable>();
+        this.mouseActionList = new ArrayList<MouseRespondable>();
+        this.keyboardActionList = new ArrayList<KeyboardRespondable>();
+        this.logicTickList = new ArrayList<LogicTicker>();
 
     }
     
