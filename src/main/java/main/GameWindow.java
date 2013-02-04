@@ -20,6 +20,7 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
+@SuppressWarnings("serial")
 public class GameWindow extends JFrame {
 
     private static final int FRAME_REDRAW_DELAY = 16;

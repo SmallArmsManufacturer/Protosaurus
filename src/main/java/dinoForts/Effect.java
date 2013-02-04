@@ -22,7 +22,7 @@ public abstract class Effect implements Displayable, LogicTicker{
         tickEffect(delta);
     }
     
-    protected void tickEffect(@SuppressWarnings("unused") int delta){};
+    protected void tickEffect(int delta){};
     
     @Override
     public float getX() {

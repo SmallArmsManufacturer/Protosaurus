@@ -140,7 +140,7 @@ public class DinosaurLocomotion {
 			this.desiredAngle = this.angle;
 	}
 
-	private void calculateVelocity(@SuppressWarnings("unused") int delta) {
+	private void calculateVelocity(int delta) {
 		if(this.velocity < this.desiredVelocity){
 			// F = MA
 			// A =  F/M
