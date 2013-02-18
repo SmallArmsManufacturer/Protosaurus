@@ -4,14 +4,20 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 
+import com.thisisdinosaur.protosaurus.shared.Maths;
+
 
 
 public class MapDrawer extends SubWindow {
 
-    private static final Color GROUND_COLOUR = new Color(120, 72, 0);
+    private static final Color GROUND_COLOUR_UNSEEN = new Color(100, 42, 0);
+    private static final Color GROUND_COLOUR_SEEN = new Color(120, 72, 0);
+    
+    private static final int FOG_TILE_SIZE = 10;
     
     private GameWindow container;
-
+    private Player player;
+    
     // Changes object location on screen to simulate panning in 2d
     private AffineTransform defaultTransform;
 
@@ -19,8 +25,9 @@ public class MapDrawer extends SubWindow {
     
     private float panX, panY;
     
-    public MapDrawer (GameWindow container) {
+    public MapDrawer (Player player, GameWindow container) {
         
+    	this.player = player;
         this.container = container;
         
         this.defaultTransform = new AffineTransform();
@@ -38,13 +45,16 @@ public class MapDrawer extends SubWindow {
         this.width = container.getWidth();
         this.height = container.getHeight();
         
-        // Draw a dirt coloured rectangle to represent the ground
-        g.setColor(GROUND_COLOUR);
-        g.fillRect(0, 0, width, height);
+        transform.setToTranslation(panX,panY);
+        g.setTransform(transform);
+        
+        drawFogOfWar(g);
         
         // Draw map entities e.g Resource Node, Relic, Dinosaur
         for (int i = 0; i < this.drawList.size(); i++) {
             
+        	transform = new AffineTransform();
+        	
             transform.setToTranslation(this.drawList.get(i).getX() + panX,
                                        this.drawList.get(i).getY() + panY);
             
@@ -59,6 +69,23 @@ public class MapDrawer extends SubWindow {
         
         g.setTransform(defaultTransform);
         
+    }
+    
+    private void drawFogOfWar(Graphics2D g){
+    	for(int i = 0; i < container.getWidth(); i+= FOG_TILE_SIZE){
+        	for(int j = 0; j < container.getHeight(); j+= FOG_TILE_SIZE){
+        		for(int k = 0; k < this.player.getLOSEntities().size(); k++){
+        			if(Maths.getDistance(this.player.getLOSEntities().get(k).getX(), this.player.getLOSEntities().get(k).getY(), i - panX, j - panY) < 200){
+        				g.setColor(GROUND_COLOUR_SEEN);
+    	                g.fillRect(i - (int)panX, j - (int)panY, FOG_TILE_SIZE, FOG_TILE_SIZE);
+        			}
+        			else{
+        				g.setColor(GROUND_COLOUR_UNSEEN);
+    	                g.fillRect(i - (int)panX, j - (int)panY, FOG_TILE_SIZE, FOG_TILE_SIZE);
+        			}
+        		}
+        	}
+        }
     }
 
     public void pan (int xIncrement, int yIncrement) {

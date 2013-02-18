@@ -11,6 +11,8 @@ public class GameFrame extends SubWindow {
     private EffectsDrawer effectsDrawer;
     private GameKeyboardHandler keyboardHandler;
     
+    private Player player;
+    
     public GameFrame () {
         
     }
@@ -26,8 +28,10 @@ public class GameFrame extends SubWindow {
 
     private void initMap (GameWindow container) {
         
+    	player = new Player();
+    	
         // Create Map
-        this.mapDrawer = new MapDrawer(container);
+        this.mapDrawer = new MapDrawer(player, container);
         this.effectsDrawer = new EffectsDrawer(mapDrawer);
         this.mapLogic = new MapLogic(mapDrawer, effectsDrawer);
         this.keyboardHandler = new GameKeyboardHandler(mapLogic, mapDrawer);
@@ -68,6 +72,8 @@ public class GameFrame extends SubWindow {
         mapDrawer.addDisplayable(carnivore);
         mapLogic.addEntity(carnivore);
         mapLogic.setCurrentDinosaur(carnivore);
+        
+        player.addEntity(carnivore);
     }
 
     private void initUi () {
