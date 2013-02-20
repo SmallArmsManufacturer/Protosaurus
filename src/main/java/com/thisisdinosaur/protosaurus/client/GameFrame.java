@@ -2,6 +2,8 @@ package com.thisisdinosaur.protosaurus.client;
 
 import com.thisisdinosaur.protosaurus.shared.DinosaurCarnivore;
 import com.thisisdinosaur.protosaurus.shared.DinosaurFactory;
+import com.thisisdinosaur.protosaurus.shared.ResourceNode;
+import com.thisisdinosaur.protosaurus.shared.ResourceNodeFactory;
 
 
 public class GameFrame extends SubWindow {
@@ -64,8 +66,19 @@ public class GameFrame extends SubWindow {
         // taking into consideration what ones the player and ai chose to make sure the map contains at least one dinosaur of each type
         placeDinosaurs();
         
-        initUi();
+        ResourceNode node1 = ResourceNodeFactory.makeResourceNode();
+        node1.setX(500);
+        node1.setY(500);
+        mapDrawer.addDisplayable(node1);
+        mapLogic.addEntity(node1);
         
+        ResourceNode node2 = ResourceNodeFactory.makeResourceNode();
+        node2.setX(150);
+        node2.setY(300);
+        mapDrawer.addDisplayable(node2);
+        mapLogic.addEntity(node2);
+               
+        initUi();
     }
     
     private void placeDinosaurs() {

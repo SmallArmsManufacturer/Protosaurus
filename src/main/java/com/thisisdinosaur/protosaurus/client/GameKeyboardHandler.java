@@ -35,6 +35,11 @@ public class GameKeyboardHandler extends KeyboardHandler{
             case 65:
                 mapDrawer.pan(20, 0);
             break;
+            
+            //SPACE
+            case 32:
+            	
+            break;
         }
         
     }
