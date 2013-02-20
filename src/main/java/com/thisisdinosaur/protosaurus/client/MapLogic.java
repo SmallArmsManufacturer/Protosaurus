@@ -10,10 +10,12 @@ public class MapLogic extends MouseActionRegion implements LogicTicker{
 
     private List<LogicTicker> entities;
     
+    private List<Player> players;
+    
     private MapDrawer mapDrawer;
     private EffectsDrawer effectsDrawer;
 
-    private Dinosaur currentDinosaur;
+    private Dinosaur selectedDinosaur;
     private MoveFlag moveFlag;
     
     public MapLogic (MapDrawer mapDrawer, EffectsDrawer effectsDrawer) {
@@ -54,10 +56,10 @@ public class MapLogic extends MouseActionRegion implements LogicTicker{
         if(button == MouseRespondable.RIGHT_CLICK) {
             
             int mapX = x - (int)mapDrawer.getPanX();
-            currentDinosaur.setTargetX(mapX);
+            selectedDinosaur.setTargetX(mapX);
             
             int mapY = y - (int)mapDrawer.getPanY();
-            currentDinosaur.setTargetY(mapY);
+            selectedDinosaur.setTargetY(mapY);
             
 //            MapPing mapPing = new MapPing();
 //            
@@ -78,7 +80,17 @@ public class MapLogic extends MouseActionRegion implements LogicTicker{
     }
 
     public void setCurrentDinosaur(Dinosaur currentDinosaur) {
-        this.currentDinosaur = currentDinosaur;
+        this.selectedDinosaur = currentDinosaur;
+    }
+    
+    public List<Dinosaur> getPlayerControlledDinosaurs() {
+    	List<Dinosaur> dinosaurs = new ArrayList<Dinosaur>();
+    	
+    	for(Player player : this.players) {
+    		dinosaurs.addAll(player.getLOSEntities());
+    	}
+    	
+    	return dinosaurs;
     }
     
 }
