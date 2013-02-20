@@ -15,7 +15,6 @@ public class MapLogic extends MouseActionRegion implements LogicTicker{
     private MapDrawer mapDrawer;
     private EffectsDrawer effectsDrawer;
 
-    private Dinosaur selectedDinosaur;
     private MoveFlag moveFlag;
     
     public MapLogic (MapDrawer mapDrawer, EffectsDrawer effectsDrawer) {
@@ -23,6 +22,8 @@ public class MapLogic extends MouseActionRegion implements LogicTicker{
         super(0, 0, mapDrawer.getWidth(), mapDrawer.getHeight());
         
         this.entities = new ArrayList<LogicTicker>();
+        this.players = new ArrayList<Player>();
+        
         this.mapDrawer = mapDrawer;
         this.effectsDrawer = effectsDrawer;
         
@@ -54,19 +55,14 @@ public class MapLogic extends MouseActionRegion implements LogicTicker{
     @Override
     public boolean mouseDown(int x, int y, int button) {
         if(button == MouseRespondable.RIGHT_CLICK) {
-            
+        	
+        	Dinosaur selectedDinosaur = players.get(0).getSelectedEntity();
+        	
             int mapX = x - (int)mapDrawer.getPanX();
-            selectedDinosaur.setTargetX(mapX);
+			selectedDinosaur .setTargetX(mapX);
             
             int mapY = y - (int)mapDrawer.getPanY();
             selectedDinosaur.setTargetY(mapY);
-            
-//            MapPing mapPing = new MapPing();
-//            
-//            mapPing.setX(mapX);
-//            mapPing.setY(mapY);
-//            
-//            effectsDrawer.addEffect(mapPing);
             
             moveFlag.setX(mapX);
             moveFlag.setY(mapY);
@@ -79,18 +75,18 @@ public class MapLogic extends MouseActionRegion implements LogicTicker{
         this.entities.add(entity);
     }
 
-    public void setCurrentDinosaur(Dinosaur currentDinosaur) {
-        this.selectedDinosaur = currentDinosaur;
-    }
-    
     public List<Dinosaur> getPlayerControlledDinosaurs() {
     	List<Dinosaur> dinosaurs = new ArrayList<Dinosaur>();
     	
     	for(Player player : this.players) {
-    		dinosaurs.addAll(player.getLOSEntities());
+    		dinosaurs.addAll(player.getDinosaurs());
     	}
     	
     	return dinosaurs;
     }
+
+	public void addPlayer(Player player) {
+		this.players.add(player);
+	}
     
 }

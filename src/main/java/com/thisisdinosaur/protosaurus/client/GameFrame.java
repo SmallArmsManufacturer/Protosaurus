@@ -36,6 +36,8 @@ public class GameFrame extends SubWindow {
         this.mapLogic = new MapLogic(mapDrawer, effectsDrawer);
         this.keyboardHandler = new GameKeyboardHandler(mapLogic, mapDrawer);
         
+        this.mapLogic.addPlayer(player);
+        
         // Reserve Dinosaur Locations
         
     }
@@ -71,9 +73,9 @@ public class GameFrame extends SubWindow {
         DinosaurCarnivore carnivore = DinosaurFactory.makeCarnivore();
         mapDrawer.addDisplayable(carnivore);
         mapLogic.addEntity(carnivore);
-        mapLogic.setCurrentDinosaur(carnivore);
+        player.setSelectedEntity(carnivore);
         
-        player.addEntity(carnivore);
+        player.addDinosaur(carnivore);
     }
 
     private void initUi () {
