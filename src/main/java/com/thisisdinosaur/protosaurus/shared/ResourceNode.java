@@ -14,7 +14,7 @@ public class ResourceNode implements Displayable, LogicTicker
 	protected int health, maxHealth;
 	
 	protected int lastHitId;
-	protected int ownerId;
+	protected Dinosaur owner;
 	
 	public ResourceNode(ResourceNodeEntity nodeEntity, Displayable cityDrawer, int maxHealth, int maxResources)
 	{
@@ -26,7 +26,7 @@ public class ResourceNode implements Displayable, LogicTicker
 		this.resources = maxResources;
 		
 		lastHitId = 0;
-		ownerId = 0;
+		owner = null;
 	}
 		
 	@Override
@@ -86,17 +86,17 @@ public class ResourceNode implements Displayable, LogicTicker
 		this.maxHealth = maxHealth;
 	}
 
-	public int getOwnerId()
+    public Dinosaur getOwner()
 	{
-		return ownerId;
+		return owner;
 	}
 
-	public void setOwnerId(int playerId)
+	public void setOwner(Dinosaur owner)
 	{
-		this.ownerId = playerId;
+		this.owner = owner;
 	}
 
-    public float getX () {
+	public float getX () {
         return this.nodeEntity.getX();
     }
     

@@ -7,7 +7,7 @@ import com.thisisdinosaur.protosaurus.client.Displayable;
 
 public class ResourceNodeDrawer implements Displayable
 {
-	private static final Color CITY_COLOUR = Color.magenta;
+	private static final Color DEFAULT_CITY_COLOUR = Color.magenta;
 	
 	private static final int CITY_DIAMETER = 20;
 	
@@ -21,7 +21,14 @@ public class ResourceNodeDrawer implements Displayable
 	@Override
 	public void draw(Graphics2D g)
 	{
-		g.setColor(CITY_COLOUR);
+		if(gameEntity.getOwner() == null)
+		{
+			g.setColor(DEFAULT_CITY_COLOUR);
+		}
+		else
+		{
+			g.setColor(Color.CYAN);
+		}
 		
 		g.fillOval(CITY_DIAMETER * -2, CITY_DIAMETER * -2, CITY_DIAMETER, CITY_DIAMETER);
 	}
