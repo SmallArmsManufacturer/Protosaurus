@@ -17,12 +17,14 @@ public class Player {
 		this.dinosaurs = new ArrayList<Dinosaur>();
 	}
 	
-	public void addDinosaur(Dinosaur entity) {
-		this.controlledEntities.add(entity);
+	public void addDinosaur(Dinosaur dinosaur) {
+		this.dinosaurs.add(dinosaur);
+		this.controlledEntities.add(dinosaur);
 	}
 	
-	public void removeDinosaur(Dinosaur entity) {
-		this.controlledEntities.remove(entity);
+	public void removeDinosaur(Dinosaur dinosaur) {
+		this.dinosaurs.remove(dinosaur);
+		this.controlledEntities.remove(dinosaur);
 	}
 	
 	// Will be changed to some other list when resource nodes are added

@@ -13,7 +13,7 @@ public class GameKeyboardHandler extends KeyboardHandler{
     
     @Override
     public void keyDown(int keyCode) {
-        System.out.println(keyCode);
+//        System.out.println(keyCode);
         switch (keyCode) {
         
             // w

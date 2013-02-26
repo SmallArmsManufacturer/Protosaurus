@@ -19,7 +19,7 @@ public class ResourceNodeEntity extends GameEntity
 	
 	public void tick(int delta)
 	{
-		System.out.println(ml.getPlayerControlledDinosaurs().isEmpty());
+//		System.out.println(ml.getPlayerControlledDinosaurs().isEmpty());
 		//The getPlayerControlledDinosaurs() method currently returns an empty list, until it's fixed this code will do nothing
 		for(Dinosaur d : playerDinosaurs)
 		{
