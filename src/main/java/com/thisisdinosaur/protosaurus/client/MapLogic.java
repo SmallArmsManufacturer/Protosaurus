@@ -1,7 +1,9 @@
 package com.thisisdinosaur.protosaurus.client;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import com.thisisdinosaur.protosaurus.shared.Dinosaur;
 
@@ -10,7 +12,8 @@ public class MapLogic extends MouseActionRegion implements LogicTicker{
 
     private List<LogicTicker> entities;
     
-    private List<Player> players;
+    private Set<Player> players;
+    private Player selectedPlayer;
     
     private MapDrawer mapDrawer;
     private EffectsDrawer effectsDrawer;
@@ -22,7 +25,7 @@ public class MapLogic extends MouseActionRegion implements LogicTicker{
         super(0, 0, mapDrawer.getWidth(), mapDrawer.getHeight());
         
         this.entities = new ArrayList<LogicTicker>();
-        this.players = new ArrayList<Player>();
+        this.players = new HashSet<Player>();
         
         this.mapDrawer = mapDrawer;
         this.effectsDrawer = effectsDrawer;
@@ -56,7 +59,7 @@ public class MapLogic extends MouseActionRegion implements LogicTicker{
     public boolean mouseDown(int x, int y, int button) {
         if(button == MouseRespondable.RIGHT_CLICK) {
         	
-        	Dinosaur selectedDinosaur = players.get(0).getSelectedEntity();
+        	Dinosaur selectedDinosaur = selectedPlayer.getSelectedEntity();
         	
             int mapX = x - (int)mapDrawer.getPanX();
 			selectedDinosaur .setTargetX(mapX);
@@ -85,8 +88,17 @@ public class MapLogic extends MouseActionRegion implements LogicTicker{
     	return dinosaurs;
     }
 
-	public void addPlayer(Player player) {
+	public void selectPlayer(Player player) {
 		this.players.add(player);
+		this.selectedPlayer = player;
+	}
+	
+	public Player getSelectedPlayer() {
+		return this.selectedPlayer;
+	}
+
+	public Set<Player> getPlayers() {
+		return this.players;
 	}
     
 }

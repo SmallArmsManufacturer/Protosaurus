@@ -3,6 +3,7 @@ package com.thisisdinosaur.protosaurus.shared;
 import java.awt.Graphics2D;
 
 import com.thisisdinosaur.protosaurus.client.Displayable;
+import com.thisisdinosaur.protosaurus.client.GameEntity;
 import com.thisisdinosaur.protosaurus.client.LogicTicker;
 
 
@@ -76,5 +77,9 @@ public abstract class Dinosaur implements Displayable, LogicTicker {
     public void setTargetY(float y) {
         this.dinosaurEntity.setTargetY(y);
     }
+
+	public GameEntity getEntity() {
+		return dinosaurEntity;
+	}
     
 }

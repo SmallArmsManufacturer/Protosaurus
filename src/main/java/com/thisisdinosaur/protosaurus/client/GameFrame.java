@@ -38,7 +38,7 @@ public class GameFrame extends SubWindow {
         this.mapLogic = new MapLogic(mapDrawer, effectsDrawer);
         this.keyboardHandler = new GameKeyboardHandler(mapLogic, mapDrawer);
         
-        this.mapLogic.addPlayer(player);
+        this.mapLogic.selectPlayer(player);
         
         // Reserve Dinosaur Locations
         
