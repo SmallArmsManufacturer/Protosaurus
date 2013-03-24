@@ -30,7 +30,7 @@ public class ResourceNodeDrawer implements Displayable
 			g.setColor(Color.CYAN);
 		}
 		
-		g.fillOval(CITY_DIAMETER * -2, CITY_DIAMETER * -2, CITY_DIAMETER, CITY_DIAMETER);
+		g.fillOval(-CITY_DIAMETER / 2, -CITY_DIAMETER / 2, CITY_DIAMETER, CITY_DIAMETER);
 	}
 
 	@Override
