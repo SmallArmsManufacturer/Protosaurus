@@ -10,8 +10,6 @@ import com.thisisdinosaur.protosaurus.shared.Dinosaur;
 
 public class MapLogic extends MouseActionRegion implements LogicTicker{
 
-    private List<LogicTicker> entities;
-    
     private Set<Player> players;
     private Player selectedPlayer;
     
@@ -19,12 +17,13 @@ public class MapLogic extends MouseActionRegion implements LogicTicker{
     private EffectsDrawer effectsDrawer;
 
     private MoveFlag moveFlag;
+	private MapData map;
     
-    public MapLogic (MapDrawer mapDrawer, EffectsDrawer effectsDrawer) {
+    public MapLogic (MapDrawer mapDrawer, EffectsDrawer effectsDrawer, int width, int height) {
         
         super(0, 0, mapDrawer.getWidth(), mapDrawer.getHeight());
         
-        this.entities = new ArrayList<LogicTicker>();
+        this.map = new MapData(width, height);
         this.players = new HashSet<Player>();
         
         this.mapDrawer = mapDrawer;
@@ -37,10 +36,12 @@ public class MapLogic extends MouseActionRegion implements LogicTicker{
 
     @Override
     public void tick(int delta) {
-        
-        for (int i = 0; i < entities.size(); i++) {
-            entities.get(i).tick(delta);
+    	
+        for (int i = 0; i < map.entities.size(); i++) {
+        	map.entities.get(i).tick(delta);
         }
+        
+        selectedPlayer.setVisibleTiles(map.getVisibleTiles(selectedPlayer.getLOSEntities()));
 
     }
     
@@ -75,7 +76,7 @@ public class MapLogic extends MouseActionRegion implements LogicTicker{
     }
 
     public void addEntity(LogicTicker entity) {
-        this.entities.add(entity);
+        map.entities.add(entity);
     }
 
     public List<Dinosaur> getPlayerControlledDinosaurs() {

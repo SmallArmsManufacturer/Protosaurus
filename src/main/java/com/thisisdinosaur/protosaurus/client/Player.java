@@ -11,6 +11,7 @@ public class Player {
 	private List<GameEntity> controlledEntities;
 	private List<Dinosaur> dinosaurs;
 	private List<ResourceNodeEntity> resourceNodes;
+	private List<Integer[]> visibleTiles;
 	
 	private Dinosaur selectedEntity;
 	
@@ -18,6 +19,7 @@ public class Player {
 		this.controlledEntities = new ArrayList<GameEntity>();
 		this.dinosaurs = new ArrayList<Dinosaur>();
 		this.resourceNodes = new ArrayList<ResourceNodeEntity>();
+		this.visibleTiles= new ArrayList<Integer[]>();
 	}
 	
 	public void addDinosaur(Dinosaur dinosaur) {
@@ -57,4 +59,22 @@ public class Player {
 		this.controlledEntities.remove(resourceNodeEntity);
 	}
 
+	public List<Integer[]> getVisibleTiles() {
+		return visibleTiles;
+	}
+
+	public void setVisibleTiles(List<Integer[]> visibleTiles) {
+		this.visibleTiles = visibleTiles;
+	}
+
+	public boolean isVisible(float x, float y) {
+		for(Integer[] losTile : this.visibleTiles) {
+			if(losTile[0] <= x && losTile[0] + MapData.LOS_TILE_SIZE >= x && losTile[1] <= y && losTile[1] + MapData.LOS_TILE_SIZE >= y) {
+				return true;
+			}
+		}
+		
+		return false;
+	}
+	
 }

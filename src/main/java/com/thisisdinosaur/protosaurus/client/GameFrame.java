@@ -35,7 +35,7 @@ public class GameFrame extends SubWindow {
         // Create Map
         this.mapDrawer = new MapDrawer(player, container);
         this.effectsDrawer = new EffectsDrawer(mapDrawer);
-        this.mapLogic = new MapLogic(mapDrawer, effectsDrawer);
+        this.mapLogic = new MapLogic(mapDrawer, effectsDrawer, 800, 800);
         this.keyboardHandler = new GameKeyboardHandler(mapLogic, mapDrawer);
         
         this.mapLogic.selectPlayer(player);
@@ -69,13 +69,13 @@ public class GameFrame extends SubWindow {
         ResourceNode node1 = ResourceNodeFactory.makeResourceNode(mapLogic);
         node1.setX(500);
         node1.setY(500);
-        mapDrawer.addDisplayable(node1);
+        mapDrawer.addVisDisplayable(node1);
         mapLogic.addEntity(node1);
         
         ResourceNode node2 = ResourceNodeFactory.makeResourceNode(mapLogic);
         node2.setX(150);
         node2.setY(300);
-        mapDrawer.addDisplayable(node2);
+        mapDrawer.addVisDisplayable(node2);
         mapLogic.addEntity(node2);
 
         initUi();
@@ -84,7 +84,7 @@ public class GameFrame extends SubWindow {
     private void placeDinosaurs() {
 
         DinosaurCarnivore carnivore = DinosaurFactory.makeCarnivore();
-        mapDrawer.addDisplayable(carnivore);
+        mapDrawer.addVisDisplayable(carnivore);
         mapLogic.addEntity(carnivore);
         player.setSelectedEntity(carnivore);
         
