@@ -73,17 +73,20 @@ public class MapDrawer extends SubWindow {
     
     private void drawFogOfWar(Graphics2D g){
     	for(int i = 0; i < container.getWidth(); i+= FOG_TILE_SIZE){
-        	for(int j = 0; j < container.getHeight(); j+= FOG_TILE_SIZE){
+    		BLOCK: for(int j = 0; j < container.getHeight(); j+= FOG_TILE_SIZE){
+        		
         		for(int k = 0; k < this.player.getLOSEntities().size(); k++){
-        			if(Maths.getDistance(this.player.getLOSEntities().get(k).getX(), this.player.getLOSEntities().get(k).getY(), i - panX, j - panY) < 200){
+        			GameEntity gameEntity = this.player.getLOSEntities().get(k);
+					if(Maths.getDistance(gameEntity.getX(), gameEntity.getY(), i - panX, j - panY) < gameEntity.getLOS()){
         				g.setColor(GROUND_COLOUR_SEEN);
     	                g.fillRect(i - (int)panX, j - (int)panY, FOG_TILE_SIZE, FOG_TILE_SIZE);
-        			}
-        			else{
-        				g.setColor(GROUND_COLOUR_UNSEEN);
-    	                g.fillRect(i - (int)panX, j - (int)panY, FOG_TILE_SIZE, FOG_TILE_SIZE);
+    	                // Goto
+    	                continue BLOCK;
         			}
         		}
+        		
+        		g.setColor(GROUND_COLOUR_UNSEEN);
+                g.fillRect(i - (int)panX, j - (int)panY, FOG_TILE_SIZE, FOG_TILE_SIZE);
         	}
         }
     }

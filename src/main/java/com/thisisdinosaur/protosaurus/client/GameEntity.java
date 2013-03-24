@@ -31,5 +31,9 @@ public abstract class GameEntity implements LogicTicker {
     @Override
     public void tick(int delta) {
     }
+
+	public float getLOS() {
+		return 200;
+	}
     
 }
