@@ -7,6 +7,7 @@ import com.thisisdinosaur.protosaurus.client.Player;
 
 public class ResourceNodeEntity extends GameEntity
 {	
+	private static final int CAPTURE_RADIUS = 50;
 	private MapLogic ml;
 	private Player owner;
 	
@@ -23,7 +24,7 @@ public class ResourceNodeEntity extends GameEntity
 			for(Dinosaur d : playerControlledDinosaurs)
 			{
 				float dist = Maths.getDistance(this.getX(), this.getY(), d.getX(), d.getY());
-				if(dist < 200)
+				if(dist < CAPTURE_RADIUS)
 				{
 					if(owner != null)
 						owner.removeResourceNode(this);
